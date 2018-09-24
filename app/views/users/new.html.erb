@@ -13,3 +13,9 @@
   <%= f.submit "Enviar" %>
 </div>
 <% end %>
+
+<% if logged? %>
+  usuario id <%= current_user %>
+<% else %>
+  no usuario
+<%end%>
