@@ -15,7 +15,7 @@
 <% end %>
 
 <% if logged? %>
-  usuario id <%= current_user %>
+  usuario <%= current_user.name %>
 <% else %>
   no usuario
 <%end%>
