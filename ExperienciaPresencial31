@@ -1,0 +1,22 @@
+CREATE DATABASE call_list;
+\c call_list
+CREATE TABLE users (id SERIAL PRIMARY KEY, first_name VARCHAR(15), email VARCHAR(25));
+call_list=# INSERT INTO users (first_name, email) values ('Carlos', 'eldeloscojo@neslarg.os');
+call_list=# INSERT INTO users (first_name, email) values ('Laura', 'laura@raka.com');
+CREATE TABLE calls (id SERIAL PRIMARY KEY, phone VARCHAR(9), date DATE);
+
+ALTER TABLE calls ADD COLUMN user_idfk INTEGER;
+ALTER TABLE calls ADD CONSTRAINT user_idfk FOREIGN KEY (user_idfk) REFERENCES users(id);
+ALTER TABLE users ADD COLUMN last_name varchar(15);
+
+UPDATE users SET last_name = 'Calderon' WHERE first_name = 'Carlos';
+UPDATE users SET last_name = 'Calderon' WHERE first_name = 'Laura';
+
+INSERT INTO calls (phone, date, user_idfk) values ('98752398', '20180306',  1),('98752398', '20180306',  1),('98752398', '20180306',  1),('98752398', '20180306',  1),('98752398', '20180306',  1),('98752398', '20180306',  1);
+
+INSERT INTO calls (phone, date, user_idfk) values ('98752398', '20180306',  2),('98752398', '20180306',  2),('98752398', '20180306',  2),('98752398', '20180306',  2);
+
+INSERT INTO users (first_name, email, last_name) values ('Juan', 'jrabanillog@gmail.com', 'Rabanillo');
+
+SELECT first_name, count(*) FROM users, calls WHERE users.id = calls.user_idfk GROUP BY first_name;
+SELECT calls.id FROM users INNER JOIN calls ON users.id = calls.user_idfk WHERE first_name='Carlos' ORDER BY date DESC;
